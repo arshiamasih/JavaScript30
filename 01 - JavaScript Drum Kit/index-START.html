@@ -60,28 +60,32 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
   <script>
-    window.addEventListener('keydown', function (e) {
 
+    function playSound(e) {
       const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
       const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
-      const keys = document.querySelectorAll(`.key`);
+
       if (!audio) return; //stop function from running if key has no audio
       audio.currentTime = 0; //rewind to start to press same key multiple times 
       audio.play();
+
+      //add transition
       key.classList.add('playing');
+    }
 
-      function removeTransition(e) {
-        if (e.propertyName !== 'transform') return;
+    function removeTransition(e) {
+      if (e.propertyName !== 'transform') return;
 
-        //this associates to respective key event (bound to that context)
-        this.classList.remove('playing');
+      //this associates to respective key event (bound to that context)
+      //removes transition
+      this.classList.remove('playing');
 
-      }
+    }
 
-      keys.forEach(key => key.addEventListener('transitionend', removeTransition))
-      //remove transition function
-      console.log(key);
-    });
+    //iterate over all elements to listen for the transition event
+    const keys = document.querySelectorAll(`.key`);
+    keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+    window.addEventListener('keydown', playSound);
 
   </script>
 
