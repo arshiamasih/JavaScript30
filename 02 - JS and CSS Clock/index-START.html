@@ -74,26 +74,31 @@
 
 
   <script>
-    const secondHand = document.querySelector('.second-hand')
-    const minuteHand = document.querySelector('.min-hand')
-    const hourHand = document.querySelector('.hour-hand')
-    function setDate() {
-      const time = new Date()
-      const seconds = time.getSeconds()
-      const minutes = time.getMinutes()
-      const hours = time.getHours()
-      const secondHandDegrees = ((seconds / 60) * 360) + 90
-      const minuteHandDegrees = ((minutes / 60) * 360) + 90
-      const hourHandDegrees = ((hours / 12) * 360) + 90
-      //transform style rotate at x degrees 
-      secondHand.style.transform = `rotate(${secondHandDegrees}deg)`
-      minuteHand.style.transform = `rotate(${minuteHandDegrees}deg)`
-      hourHand.style.transform = `rotate(${hourHandDegrees}deg)`
-      console.log(seconds)
+
+    //get elements
+    //secondHand
+    //minuteHand
+    //hourHand
+    const secondHand = document.querySelector('.second-hand');
+
+    function moveHands() {
+      const time = new Date();
+      const seconds = time.getSeconds();
+
+      const secondCalc = ((seconds / 60) * 360) + 90;
+      secondHand.style.transform = `rotate(${secondCalc}deg)`;
+
     }
 
-    setInterval(setDate, 1000)
+    //set interval
+    //at every 1000s, call a function that:
 
+    //moves the second hand every second
+    //moves the minute hand every minute
+    //moves the hour hand every hour
+    //accurately gets current time
+    //use transform rotate at x degrees 
+    setInterval(moveHands, 1000)
 
   </script>
 </body>
