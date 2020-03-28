@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Hold Shift to Check Multiple Checkboxes</title>
 </head>
+
 <body>
   <style>
-
     html {
       font-family: sans-serif;
       background: #ffc600;
@@ -17,7 +18,7 @@
       margin: 50px auto;
       background: white;
       border-radius: 5px;
-      box-shadow: 10px 10px 0 rgba(0,0,0,0.1);
+      box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.1);
     }
 
     .item {
@@ -30,7 +31,7 @@
       border-bottom: 0;
     }
 
-    input:checked + p {
+    input:checked+p {
       background: #F9F9F9;
       text-decoration: line-through;
     }
@@ -44,13 +45,13 @@
       padding: 20px;
       transition: background 0.2s;
       flex: 1;
-      font-family:'helvetica neue';
+      font-family: 'helvetica neue';
       font-size: 20px;
       font-weight: 200;
       border-left: 1px solid #D1E2FF;
     }
   </style>
-   <!--
+  <!--
    The following is a common layout you would see in an email client.
 
    When a user clicks a checkbox, holds Shift, and then clicks another checkbox a few rows down, all the checkboxes inbetween those two checkboxes should be checked.
@@ -62,7 +63,7 @@
       <p>This is an inbox layout.</p>
     </div>
     <div class="item">
-      <input type="checkbox">
+      <input id='1' type="checkbox">
       <p>Check one item</p>
     </div>
     <div class="item">
@@ -95,7 +96,58 @@
     </div>
   </div>
 
-<script>
-</script>
+  <script>
+    //classlist
+    //if select shift key // do something
+    // one has to be marked
+    // another selection has to be made
+    // if a checked item is true && shift key selected
+    // this.value on input type check
+    // in an array for indexing
+    // get index of checked and previous checked
+    // apply classes to all items between 
+    // iterate and style.line through or span?
+
+    //function linethrough(){
+    //if 1 selected is true, key === shift
+    //grab other selection 
+
+
+    let previousChecked;
+
+    function handleCheck(e) {
+      console.log('this.checked', this.checked)
+
+
+      if (e.shiftKey && this.checked) {
+        //iterate through list
+        //get indexes of checked
+        let inBetween = false;
+        items.forEach(item => {
+          //console.log('this is an item', item)
+
+          if (item === this || item === previousChecked) {
+            inBetween = !inBetween
+          }
+
+          if (inBetween) {
+            item.checked = true
+          }
+
+        })
+
+      }
+
+      previousChecked = this
+
+    }
+
+
+
+    //event listener 
+    const items = document.querySelectorAll('.inbox input[type="checkbox"]')
+    items.forEach(item => item.addEventListener('click', handleCheck))
+  </script>
 </body>
+
 </html>
